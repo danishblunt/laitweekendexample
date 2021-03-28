@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/laitweekendexample/static/js/main.7e83a2d7.chunk.js",
-    "main.js.map": "/laitweekendexample/static/js/main.7e83a2d7.chunk.js.map",
+    "main.js": "/laitweekendexample/static/js/main.0b2420dc.chunk.js",
+    "main.js.map": "/laitweekendexample/static/js/main.0b2420dc.chunk.js.map",
     "runtime-main.js": "/laitweekendexample/static/js/runtime-main.b8f09d4a.js",
     "runtime-main.js.map": "/laitweekendexample/static/js/runtime-main.b8f09d4a.js.map",
     "static/js/2.56cd3ec3.chunk.js": "/laitweekendexample/static/js/2.56cd3ec3.chunk.js",
@@ -19,6 +19,6 @@
   "entrypoints": [
     "static/js/runtime-main.b8f09d4a.js",
     "static/js/2.56cd3ec3.chunk.js",
-    "static/js/main.7e83a2d7.chunk.js"
+    "static/js/main.0b2420dc.chunk.js"
   ]
 }
