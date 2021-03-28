@@ -7,6 +7,7 @@ type Props = {
   answers: string[]
   callback: any
   userAnswer: any
+  uncertainUser: boolean
 }
 
 const QuestionCard: React.FC<Props> = ({
@@ -14,6 +15,7 @@ const QuestionCard: React.FC<Props> = ({
     answers, 
     callback, 
     userAnswer,
+    uncertainUser,
     }) => (
         <div>
             <QuestionWrapper>
@@ -22,6 +24,7 @@ const QuestionCard: React.FC<Props> = ({
             <div>
                 {answers.map(answer => (
                     <ButtonWrapper key={answer} 
+                    uncertain={uncertainUser}
                     correct={userAnswer?.correctAnswer === answer}
                     userClicked={userAnswer?.answer === answer}>
                     <button disabled={userAnswer ? true : false} value={answer} onClick={callback}>

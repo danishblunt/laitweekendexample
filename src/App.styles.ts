@@ -36,3 +36,20 @@ button {
     text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.25);
   }
 `
+
+export const TryagainButtonWrapper = styled.div`
+button {
+    cursor: pointer;
+    user-select: none;
+    font-size: 0.8rem;
+    width: 100%;
+    height: 40px;
+    margin: 5px 0;
+    background-image: linear-gradient(#006600, #009900);
+    border: 2px solid #a1a09e;
+    box-shadow: 1px 2px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    color: #fff;
+    text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.25);
+  }
+`

@@ -17,6 +17,7 @@ export const QuestionWrapper = styled.div`
 type ButtonWrapperProps = {
   correct: boolean
   userClicked: boolean
+  uncertain: boolean
 }
 
 export const ButtonWrapper = styled.div<ButtonWrapperProps>`
@@ -31,8 +32,10 @@ export const ButtonWrapper = styled.div<ButtonWrapperProps>`
     width: 100%;
     height: 40px;
     margin: 5px 0;
-    background: ${({ correct, userClicked }) =>
-      correct
+    background: ${({ correct, userClicked, uncertain }) =>
+      uncertain && userClicked ? 'linear-gradient(0deg, #ff9900, #ffad33)'
+      :
+      correct && !uncertain
         ? 'linear-gradient(0deg, #56FFA4, #59BC86)'
         : !correct && userClicked
         ? 'linear-gradient(0deg, #FF5656, #C16868)'

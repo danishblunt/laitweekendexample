@@ -10,26 +10,29 @@ import QuestionCard from './components/QuestionCard'
 import SoundURL from './sounds/sound.mp3'
 // styles
 import { GlobalStyle } from './App.styles'
-import { NextButtonWrapper } from './App.styles'
+import { NextButtonWrapper, TryagainButtonWrapper } from './App.styles'
 
-type AnswerObject = {
-  question: string;
-  answer: string
-  correct: boolean
-  correct_answer: string
-}
 
 const TOTAL_QUESTIONS = 5
+
+export type AnswerObject = {
+  question: string;
+  answer: string;
+  correct: boolean;
+  correctAnswer: string;
+}
 
 const App = () => {
   // states
   const [loading, setLoading] = useState(false)
   const [questions, setQuestions] = useState<QuestionState[]>([])
   const [number, setNumber] = useState(0)
-  const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([])
+  const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([]);
   const [score, setScore] = useState(0)
   const [gameOver, setGameOver] = useState(true)
   const [currentDifficulty, setCurrentDifficulty] = useState(0)
+  const [uncertainUser, setUncertainUser] = useState(false)
+  const [lostGame, setLostGame] = useState(false)
 
   const OutputMoney = (currentMoney: number) => {
     switch(currentMoney) {
@@ -117,45 +120,53 @@ const App = () => {
       },
     })
 
-  const LockAnswer = (e: React.MouseEvent<HTMLButtonElement>) => { 
-    const answer = e.currentTarget.value
+  const resetGame = () => {
+    setLostGame(true)
     stop()
-    play({ id: 'lockinSound' })
-    setTimeout(()=>checkAnswer(answer), 5000);
-
+    setCurrentDifficulty(0)
+    play({ id: 'wrongAnswer' })
   }
 
-  const checkAnswer = (answer: string) => {
-    if(!gameOver) {
+  const revealAnswer = (rightorwrong: boolean) => { 
+    setUncertainUser(false)
+    if(rightorwrong){
+      stop()
+      play({ id: 'correctAnswer' })
+      setTimeout(()=>nextQuestion(), 5000);
+      setScore(prev => prev+1)
+    }else{
+      resetGame()
+    }
+  }
+
+  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if(!gameOver && !uncertainUser) {
       // Users Answer
+      const answer = e.currentTarget.value
       // check answer against correct answer
       const correct = questions[number].correct_answer === answer
       // Add Score if answer is correct
-      if(correct) {
-        stop()
-        play({ id: 'correctAnswer' })
-        nextQuestion()
-        setScore(prev => prev+1)
-      }else{
-        stop()
-        setCurrentDifficulty(0)
-        play({ id: 'wrongAnswer' })
-      }
-      // Save Answer in the array for user Answers
+      stop()
+      play({ id: 'lockinSound' })
       const answerObject = {
-        questions: questions[number].question,
+        question: questions[number].question,
         answer,
         correct,
-        correctAnswer: questions[number].correct_answer
+        correctAnswer: questions[number].correct_answer,
+      };
+      setUserAnswers((prev) => [...prev, answerObject]);
+      setUncertainUser(true)
+      if(correct) {
+        setTimeout(()=>revealAnswer(true), 5000);
+      }else{
+        setTimeout(()=>revealAnswer(false), 5000);
       }
-      setUserAnswers([])
     }
   }
 
   const nextQuestion = async () => {
     // move on to the next question
     const nextQuestion = number +1
-
     if(nextQuestion === TOTAL_QUESTIONS && currentDifficulty === 3){
       setGameOver(true)
     }else if(nextQuestion === TOTAL_QUESTIONS && currentDifficulty < 3){
@@ -173,13 +184,13 @@ const App = () => {
     }else{
       switch(currentDifficulty) {
         case 1:
-          setTimeout(()=>play({ id: 'easyMusic' }), 5000);
+          play({ id: 'easyMusic' })
           break;
         case 2:
-          setTimeout(()=>play({ id: 'mediumMusic' }), 5000);
+          play({ id: 'mediumMusic' })
           break;
         case 3:
-          setTimeout(()=>play({ id: 'hardMusic' }), 5000);
+          play({ id: 'hardMusic' })
           break;
         default:
           stop()
@@ -199,13 +210,20 @@ const App = () => {
             <button className="start" onClick={startQuiz}>start</button>
           </NextButtonWrapper>
         ) : null }
-        <p className="money">Money:${OutputMoney(score)}</p>
+        {!gameOver && <p className="money">Money:${OutputMoney(score)}</p> }
         {loading  && <p>Loading Questions...</p>}
+        {lostGame && <div>
+          <TryagainButtonWrapper>
+            <h1>GAME OVER</h1>
+            <button className="start" onClick={startQuiz}>Try again!</button>
+          </TryagainButtonWrapper>
+        </div>}
         {!loading && !gameOver && (<QuestionCard 
+          uncertainUser={uncertainUser}
           question={questions[number].question}
           answers={questions[number].answers}
           userAnswer={userAnswers ? userAnswers[number] : undefined}
-          callback={LockAnswer}
+          callback={checkAnswer}
         />)}
       </div>
     </>
