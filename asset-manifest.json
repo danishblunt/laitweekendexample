@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.js": "/laitweekendexample/static/js/main.bcd23bc5.chunk.js",
+    "main.js.map": "/laitweekendexample/static/js/main.bcd23bc5.chunk.js.map",
+    "runtime-main.js": "/laitweekendexample/static/js/runtime-main.b8f09d4a.js",
+    "runtime-main.js.map": "/laitweekendexample/static/js/runtime-main.b8f09d4a.js.map",
+    "static/js/2.e84c89e3.chunk.js": "/laitweekendexample/static/js/2.e84c89e3.chunk.js",
+    "static/js/2.e84c89e3.chunk.js.map": "/laitweekendexample/static/js/2.e84c89e3.chunk.js.map",
+    "static/js/3.bdaf79a0.chunk.js": "/laitweekendexample/static/js/3.bdaf79a0.chunk.js",
+    "static/js/3.bdaf79a0.chunk.js.map": "/laitweekendexample/static/js/3.bdaf79a0.chunk.js.map",
+    "static/js/4.4263c783.chunk.js": "/laitweekendexample/static/js/4.4263c783.chunk.js",
+    "static/js/4.4263c783.chunk.js.map": "/laitweekendexample/static/js/4.4263c783.chunk.js.map",
+    "index.html": "/laitweekendexample/index.html",
+    "static/js/2.e84c89e3.chunk.js.LICENSE.txt": "/laitweekendexample/static/js/2.e84c89e3.chunk.js.LICENSE.txt",
+    "static/js/3.bdaf79a0.chunk.js.LICENSE.txt": "/laitweekendexample/static/js/3.bdaf79a0.chunk.js.LICENSE.txt",
+    "static/media/background.9de3097b.jpg": "/laitweekendexample/static/media/background.9de3097b.jpg",
+    "static/media/sound.3a40a37c.mp3": "/laitweekendexample/static/media/sound.3a40a37c.mp3"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b8f09d4a.js",
+    "static/js/2.e84c89e3.chunk.js",
+    "static/js/main.bcd23bc5.chunk.js"
+  ]
+}
