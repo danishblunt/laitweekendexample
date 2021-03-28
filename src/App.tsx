@@ -106,6 +106,7 @@ const App = () => {
     setCurrentDifficulty(1)
     play({ id: 'easyMusic' })
     setLoading(false)
+    setLostGame(false)
   }
 
     const [play, { stop }] = useSound(SoundURL, {
@@ -114,7 +115,7 @@ const App = () => {
         correctAnswer: [0, 5000],
         wrongAnswer: [5000, 3000],
         easyMusic: [8400, 163000],
-        mediumMusic: [174200, 163000],
+        mediumMusic: [174200, 158000],
         hardMusic: [646000, 163000],
         lockinSound: [801000, 5000]
       },
@@ -125,6 +126,10 @@ const App = () => {
     stop()
     setCurrentDifficulty(0)
     play({ id: 'wrongAnswer' })
+  }
+
+  const resetUserQuestions = () => {
+    setUserAnswers([]);
   }
 
   const revealAnswer = (rightorwrong: boolean) => { 
@@ -175,11 +180,13 @@ const App = () => {
       if(currentDifficulty === 2){
         const startingQUestions = await fetchAllQuestions("medium")
         setQuestions(startingQUestions)
-        setTimeout(()=>play({ id: 'mediumMusic' }), 5000);
+        resetUserQuestions()
+        play({ id: 'mediumMusic' })
       }else{
         const startingQUestions = await fetchAllQuestions("hard")
         setQuestions(startingQUestions)
-        setTimeout(()=>play({ id: 'hardMusic' }), 5000);
+        resetUserQuestions()
+        play({ id: 'hardMusic' })
       }
     }else{
       switch(currentDifficulty) {
@@ -204,7 +211,7 @@ const App = () => {
     <>
     <GlobalStyle/>
       <div className="App">
-        {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
+        {gameOver ? (
           <NextButtonWrapper>
             <h1>React Quiz</h1>
             <button className="start" onClick={startQuiz}>start</button>
@@ -218,6 +225,7 @@ const App = () => {
             <button className="start" onClick={startQuiz}>Try again!</button>
           </TryagainButtonWrapper>
         </div>}
+        {console.log(userAnswers)}
         {!loading && !gameOver && (<QuestionCard 
           uncertainUser={uncertainUser}
           question={questions[number].question}
